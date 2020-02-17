@@ -7,6 +7,6 @@ namespace SSSApp.API.Models
         public int DriverId { get; set; }
         public string DriverNick { get; set; }
         public int FavouriteNumber { get; set; }
-        public ICollection<Entry> Entries { get; set; }        
+        public ICollection<RallyEntry> RallyEntries { get; set; }        
     }
 }

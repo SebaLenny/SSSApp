@@ -9,8 +9,8 @@ namespace SSSApp.API.Models
         public Rally Rally { get; set; }
         public int TrackId { get; set; }
         public Track Track { get; set; }
-        public ICollection<Result> Results { get; set; }
-        public int ConditionsId { get; set; }
+        public int? ConditionsId { get; set; }
         public Conditions Conditions { get; set; }
+        public ICollection<Result> Results { get; set; }
     }
 }

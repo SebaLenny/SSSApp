@@ -7,15 +7,14 @@ namespace SSSApp.API.Data
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
 
-        public DbSet<Car> Cars { get; set; }
-        public DbSet<Category> Categories { get; set; }
-        public DbSet<Conditions> Conditions { get; set; }
-        public DbSet<Driver> Drivers { get; set; }
-        public DbSet<Entry> Entries { get; set; }
-        public DbSet<Rally> Rallies { get; set; }
-        public DbSet<Result> Results { get; set; }
-        public DbSet<Stage> Stages { get; set; }
-        public DbSet<Track> Tracks { get; set; }
-
+        public DbSet<Car> Car { get; set; }
+        public DbSet<CarCategory> CarCategory { get; set; }
+        public DbSet<Conditions> Condition { get; set; }
+        public DbSet<Driver> Driver { get; set; }
+        public DbSet<RallyEntry> RallyEntry { get; set; }
+        public DbSet<Rally> Rally { get; set; }
+        public DbSet<Result> Result { get; set; }
+        public DbSet<Stage> Stage { get; set; }
+        public DbSet<Track> Track { get; set; }
     }
 }

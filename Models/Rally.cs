@@ -8,9 +8,9 @@ namespace SSSApp.API.Models
         public int RallyId { get; set; }
         public string RallyName { get; set; }
         public DateTime EventDate { get; set; }
-        public int? CategoryId { get; set; }
-        public Category Category { get; set; }
-        public ICollection<Entry> Entries { get; set; }
+        public int? CarCategoryId { get; set; }
+        public CarCategory CarCategory { get; set; }
+        public ICollection<RallyEntry> RallyEntries { get; set; }
         public ICollection<Stage> Stages { get; set; }
     }
 }

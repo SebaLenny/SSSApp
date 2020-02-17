@@ -3,10 +3,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace SSSApp.API.Models
 {
-    public class Category
+    public class CarCategory
     {
-        public int CategoryId { get; set; }
+        public int CarCategoryId { get; set; }
         public string CategoryName { get; set; }
         public ICollection<Car> Cars { get; set; }
+        public ICollection<Rally> Rallies { get; set; }
     }
 }
