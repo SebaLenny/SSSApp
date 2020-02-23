@@ -9,7 +9,7 @@ using SSSApp.API.Data;
 namespace SSSApp.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200217190313_Init")]
+    [Migration("20200223115543_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -82,6 +82,20 @@ namespace SSSApp.API.Migrations
                     b.ToTable("Driver");
                 });
 
+            modelBuilder.Entity("SSSApp.API.Models.Order", b =>
+                {
+                    b.Property<int>("OrderId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("OrderId");
+
+                    b.ToTable("Order");
+                });
+
             modelBuilder.Entity("SSSApp.API.Models.Rally", b =>
                 {
                     b.Property<int>("RallyId")
@@ -94,12 +108,17 @@ namespace SSSApp.API.Migrations
                     b.Property<DateTime>("EventDate")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("OrderId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("RallyName")
                         .HasColumnType("TEXT");
 
                     b.HasKey("RallyId");
 
                     b.HasIndex("CarCategoryId");
+
+                    b.HasIndex("OrderId");
 
                     b.ToTable("Rally");
                 });
@@ -212,6 +231,12 @@ namespace SSSApp.API.Migrations
                     b.HasOne("SSSApp.API.Models.CarCategory", "CarCategory")
                         .WithMany("Rallies")
                         .HasForeignKey("CarCategoryId");
+
+                    b.HasOne("SSSApp.API.Models.Order", "Order")
+                        .WithMany("Rallies")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("SSSApp.API.Models.RallyEntry", b =>

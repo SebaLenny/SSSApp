@@ -48,6 +48,19 @@ namespace SSSApp.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Order",
+                columns: table => new
+                {
+                    OrderId = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Order", x => x.OrderId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Track",
                 columns: table => new
                 {
@@ -88,7 +101,8 @@ namespace SSSApp.API.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     RallyName = table.Column<string>(nullable: true),
                     EventDate = table.Column<DateTime>(nullable: false),
-                    CarCategoryId = table.Column<int>(nullable: true)
+                    CarCategoryId = table.Column<int>(nullable: true),
+                    OrderId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -99,6 +113,12 @@ namespace SSSApp.API.Migrations
                         principalTable: "CarCategory",
                         principalColumn: "CarCategoryId",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Rally_Order_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Order",
+                        principalColumn: "OrderId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -207,6 +227,11 @@ namespace SSSApp.API.Migrations
                 column: "CarCategoryId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Rally_OrderId",
+                table: "Rally",
+                column: "OrderId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_RallyEntry_CarId",
                 table: "RallyEntry",
                 column: "CarId");
@@ -275,6 +300,9 @@ namespace SSSApp.API.Migrations
 
             migrationBuilder.DropTable(
                 name: "CarCategory");
+
+            migrationBuilder.DropTable(
+                name: "Order");
         }
     }
 }
