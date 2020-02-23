@@ -16,5 +16,6 @@ namespace SSSApp.API.Data
         public DbSet<Result> Result { get; set; }
         public DbSet<Stage> Stage { get; set; }
         public DbSet<Track> Track { get; set; }
+        public DbSet<Order> Order { get; set; }
     }
 }
