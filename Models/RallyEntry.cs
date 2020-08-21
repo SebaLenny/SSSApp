@@ -7,11 +7,11 @@ namespace SSSApp.API.Models
         public int RallyEntryId { get; set; }
         public int StartingNumber { get; set; }
         public int CarId { get; set; }
-        public Car Car { get; set; }
+        public virtual Car Car { get; set; }
         public int DriverId { get; set; }
-        public Driver Driver { get; set; }
+        public virtual Driver Driver { get; set; }
         public int RallyId { get; set; }
-        public Rally Rally { get; set; }
-        public ICollection<Result> Results { get; set; }
+        public virtual Rally Rally { get; set; }
+        public virtual ICollection<Result> Results { get; set; }
     }
 }

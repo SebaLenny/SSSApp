@@ -7,7 +7,7 @@ namespace SSSApp.API.Models
     {
         public int CarCategoryId { get; set; }
         public string CategoryName { get; set; }
-        public ICollection<Car> Cars { get; set; }
-        public ICollection<Rally> Rallies { get; set; }
+        public virtual ICollection<Car> Cars { get; set; }
+        public virtual ICollection<Rally> Rallies { get; set; }
     }
 }

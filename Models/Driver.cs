@@ -7,6 +7,8 @@ namespace SSSApp.API.Models
         public int DriverId { get; set; }
         public string DriverNick { get; set; }
         public int FavouriteNumber { get; set; }
-        public ICollection<RallyEntry> RallyEntries { get; set; }        
+        public virtual ICollection<RallyEntry> RallyEntries { get; set; }   
+        public int? ClubId { get; set; }     
+        public virtual Club Club { get; set; }     
     }
 }

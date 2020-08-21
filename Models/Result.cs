@@ -8,8 +8,8 @@ namespace SSSApp.API.Models
         public TimeSpan Time { get; set; }
         public bool DNF { get; set; }
         public int RallyEntryId { get; set; }
-        public RallyEntry RallyEntry { get; set; }
+        public virtual RallyEntry RallyEntry { get; set; }
         public int StageId { get; set; }
-        public Stage Stage { get; set; }
+        public virtual Stage Stage { get; set; }
     }
 }

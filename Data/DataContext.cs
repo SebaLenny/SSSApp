@@ -9,6 +9,8 @@ namespace SSSApp.API.Data
 
         public DbSet<Car> Car { get; set; }
         public DbSet<CarCategory> CarCategory { get; set; }
+        public DbSet<Club> Club { get; set; }
+        public DbSet<ClubRally> ClubRally { get; set; }
         public DbSet<Conditions> Condition { get; set; }
         public DbSet<Driver> Driver { get; set; }
         public DbSet<RallyEntry> RallyEntry { get; set; }
@@ -17,5 +19,13 @@ namespace SSSApp.API.Data
         public DbSet<Stage> Stage { get; set; }
         public DbSet<Track> Track { get; set; }
         public DbSet<Order> Order { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<ClubRally>()
+                .HasKey(cr => new { cr.ClubId, cr.RallyId });
+        }
     }
 }

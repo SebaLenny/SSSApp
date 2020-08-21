@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SSSApp.API.Migrations
 {
-    public partial class Init : Migration
+    public partial class Base : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -21,6 +21,19 @@ namespace SSSApp.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Club",
+                columns: table => new
+                {
+                    ClubId = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    ClubName = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Club", x => x.ClubId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Condition",
                 columns: table => new
                 {
@@ -31,20 +44,6 @@ namespace SSSApp.API.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Condition", x => x.ConditionsId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Driver",
-                columns: table => new
-                {
-                    DriverId = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    DriverNick = table.Column<string>(nullable: true),
-                    FavouriteNumber = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Driver", x => x.DriverId);
                 });
 
             migrationBuilder.CreateTable(
@@ -94,6 +93,27 @@ namespace SSSApp.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Driver",
+                columns: table => new
+                {
+                    DriverId = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    DriverNick = table.Column<string>(nullable: true),
+                    FavouriteNumber = table.Column<int>(nullable: false),
+                    ClubId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Driver", x => x.DriverId);
+                    table.ForeignKey(
+                        name: "FK_Driver_Club_ClubId",
+                        column: x => x.ClubId,
+                        principalTable: "Club",
+                        principalColumn: "ClubId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Rally",
                 columns: table => new
                 {
@@ -118,6 +138,30 @@ namespace SSSApp.API.Migrations
                         column: x => x.OrderId,
                         principalTable: "Order",
                         principalColumn: "OrderId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ClubRally",
+                columns: table => new
+                {
+                    ClubId = table.Column<int>(nullable: false),
+                    RallyId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ClubRally", x => new { x.ClubId, x.RallyId });
+                    table.ForeignKey(
+                        name: "FK_ClubRally_Club_ClubId",
+                        column: x => x.ClubId,
+                        principalTable: "Club",
+                        principalColumn: "ClubId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ClubRally_Rally_RallyId",
+                        column: x => x.RallyId,
+                        principalTable: "Rally",
+                        principalColumn: "RallyId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -222,6 +266,16 @@ namespace SSSApp.API.Migrations
                 column: "CarCategoryId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ClubRally_RallyId",
+                table: "ClubRally",
+                column: "RallyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Driver_ClubId",
+                table: "Driver",
+                column: "ClubId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Rally_CarCategoryId",
                 table: "Rally",
                 column: "CarCategoryId");
@@ -275,6 +329,9 @@ namespace SSSApp.API.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "ClubRally");
+
+            migrationBuilder.DropTable(
                 name: "Result");
 
             migrationBuilder.DropTable(
@@ -297,6 +354,9 @@ namespace SSSApp.API.Migrations
 
             migrationBuilder.DropTable(
                 name: "Track");
+
+            migrationBuilder.DropTable(
+                name: "Club");
 
             migrationBuilder.DropTable(
                 name: "CarCategory");

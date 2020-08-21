@@ -6,6 +6,6 @@ namespace SSSApp.API.Models
     {
         public int TrackId { get; set; }
         public string TrackName { get; set; }
-        public ICollection<Stage> Stages { get; set; }
+        public virtual ICollection<Stage> Stages { get; set; }
     }
 }

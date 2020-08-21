@@ -9,14 +9,14 @@ using SSSApp.API.Data;
 namespace SSSApp.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200223115543_Init")]
-    partial class Init
+    [Migration("20200821150704_Base")]
+    partial class Base
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.1");
+                .HasAnnotation("ProductVersion", "3.1.7");
 
             modelBuilder.Entity("SSSApp.API.Models.Car", b =>
                 {
@@ -51,6 +51,35 @@ namespace SSSApp.API.Migrations
                     b.ToTable("CarCategory");
                 });
 
+            modelBuilder.Entity("SSSApp.API.Models.Club", b =>
+                {
+                    b.Property<int>("ClubId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("ClubName")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("ClubId");
+
+                    b.ToTable("Club");
+                });
+
+            modelBuilder.Entity("SSSApp.API.Models.ClubRally", b =>
+                {
+                    b.Property<int>("ClubId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("RallyId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("ClubId", "RallyId");
+
+                    b.HasIndex("RallyId");
+
+                    b.ToTable("ClubRally");
+                });
+
             modelBuilder.Entity("SSSApp.API.Models.Conditions", b =>
                 {
                     b.Property<int>("ConditionsId")
@@ -71,6 +100,9 @@ namespace SSSApp.API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int?>("ClubId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("DriverNick")
                         .HasColumnType("TEXT");
 
@@ -78,6 +110,8 @@ namespace SSSApp.API.Migrations
                         .HasColumnType("INTEGER");
 
                     b.HasKey("DriverId");
+
+                    b.HasIndex("ClubId");
 
                     b.ToTable("Driver");
                 });
@@ -224,6 +258,28 @@ namespace SSSApp.API.Migrations
                     b.HasOne("SSSApp.API.Models.CarCategory", "CarCategory")
                         .WithMany("Cars")
                         .HasForeignKey("CarCategoryId");
+                });
+
+            modelBuilder.Entity("SSSApp.API.Models.ClubRally", b =>
+                {
+                    b.HasOne("SSSApp.API.Models.Club", "Club")
+                        .WithMany()
+                        .HasForeignKey("ClubId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SSSApp.API.Models.Rally", "Rally")
+                        .WithMany()
+                        .HasForeignKey("RallyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("SSSApp.API.Models.Driver", b =>
+                {
+                    b.HasOne("SSSApp.API.Models.Club", "Club")
+                        .WithMany("Drivers")
+                        .HasForeignKey("ClubId");
                 });
 
             modelBuilder.Entity("SSSApp.API.Models.Rally", b =>

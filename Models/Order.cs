@@ -6,6 +6,6 @@ namespace SSSApp.API.Models
     {
         public int OrderId { get; set; }
         public string Name { get; set; }
-        public ICollection<Rally> Rallies { get; set; }
+        public virtual ICollection<Rally> Rallies { get; set; }
     }
 }

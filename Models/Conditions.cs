@@ -6,6 +6,6 @@ namespace SSSApp.API.Models
     {
         public int ConditionsId { get; set; }
         public string Description { get; set; }
-        public ICollection<Stage> Stages { get; set; }
+        public virtual ICollection<Stage> Stages { get; set; }
     }
 }
