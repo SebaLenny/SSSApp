@@ -26,7 +26,7 @@ namespace SSSApp.API.Controllers
         [HttpGet("{driverId}")]
         public async Task<IActionResult> GetDrivers(int driverId)
         {
-            var driver = await dataContext.Driver.FirstOrDefaultAsync(d => d.DriverId == driverId);
+            var driver = await dataContext.Driver.FirstOrDefaultAsync(d => d.Id == driverId);
             return Ok(driver);
         }
     }

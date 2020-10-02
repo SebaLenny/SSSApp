@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using SSSApp.API.Models;
 
 namespace SSSApp.API.Data
@@ -19,33 +20,50 @@ namespace SSSApp.API.Data
             List<Stage> stages = null;
             List<Result> results = null;
             List<Order> orders = null;
+            List<Club> clubs = null;
+
+            if (!context.Club.Any())
+            {
+                clubs = new List<Club>{
+                    new Club{
+                        ClubName = "Morszczuki"
+                    }
+                };
+                context.Club.AddRange(clubs);
+            }
             if (!context.Driver.Any())
             {
                 drivers = new List<Driver>{
                     new Driver{
-                        DriverNick = "SebaLenny",
-                        FavouriteNumber = 13
+                        UserName = "SebaLenny",
+                        FavouriteNumber = 13,
+                        Club = clubs[0]
                     },
                     new Driver{
-                        DriverNick = "Hypnosia",
-                        FavouriteNumber = 27
+                        UserName = "Hypnosia",
+                        FavouriteNumber = 27,
+                        Club = clubs[0]
                     },
                     new Driver{
-                        DriverNick = "Papryk",
-                        FavouriteNumber = 2
+                        UserName = "Papryk",
+                        FavouriteNumber = 2,
+                        Club = clubs[0]
                     },
                     new Driver{
-                        DriverNick = "Zibi",
-                        FavouriteNumber = 69
+                        UserName = "Zibi",
+                        FavouriteNumber = 69,
+                        Club = clubs[0]
                     },
                     new Driver{
-                        DriverNick = "Slomas",
-                        FavouriteNumber = 69
+                        UserName = "Slomas",
+                        FavouriteNumber = 69,
+                        Club = clubs[0]
                     },
                 };
                 context.Driver.AddRange(drivers);
             }
-            if(!context.Order.Any()){
+            if (!context.Order.Any())
+            {
                 orders = new List<Order>
                 {
                     new Order{Name="Best last"},
